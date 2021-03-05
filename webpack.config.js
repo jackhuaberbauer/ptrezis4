@@ -3,6 +3,7 @@ const webpack = require('webpack');
 
 module.exports = {
     mode: 'development',
+    devtool: false,
     entry: path.join(__dirname, "client", "app.js"),
     module: {
         rules: [
@@ -20,11 +21,15 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, "public"),
-        filename: "bundle.js",
+        filename: "[name].js",
+        sourceMapFilename: "./[name].js.map",
         publicPath: "/"
     }, 
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.SourceMapDevToolPlugin({
+          filename: '[file].map[query]'
+        }),
     ],
     devServer: {
         hot: true,
