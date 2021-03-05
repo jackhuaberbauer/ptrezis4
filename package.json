@@ -13,7 +13,12 @@
   "dependencies": {
     "express": "^4.17.1",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "cheerio": "^1.0.0-rc.5",
+    "iconv-lite": "^0.6.2",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "moment": "^2.29.1"
   },
   "devDependencies": {
     "@babel/core": "^7.13.8",
