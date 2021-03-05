@@ -21,7 +21,7 @@ function ReziContainer() {
     </div>
   );
 }
-// 
+
 function PublishingDateContainer(props) {
   const [publishingDate, setPublishingDate] = useState(props.publishingDate);
   const [data, setData] = useState(undefined);

@@ -51595,8 +51595,7 @@ function ReziContainer() {
       return setLoadedPublishingDates([].concat(_toConsumableArray(loadedPublishingDates), [nextFridayToLoad]));
     }
   }, "Load next"));
-} // 
-
+}
 
 function PublishingDateContainer(props) {
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(props.publishingDate),

@@ -3,7 +3,9 @@
 - clone repo
 - npm install
 - copy '.env.example' to '.env' and add spotify app credentials
+
+# Run
 - 'npm start'
 
-For development additionally
-- npx webpack
+# Development
+- npm dev
