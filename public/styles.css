@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+.rezicontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.publishingDateContainer {
+    width: 80vw;
+    max-width: 1200px;
+}
+
+.publishingDate {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.reziGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.rezi {
+    margin: 10px;
+    min-height: 100px;
+    border: 1px solid rgba(0, 0, 0, 0.125);;
+    
+}
+
+.rezicover {
+    width: 100%;
+}
+
+.rezibody {
+    padding: 20px;
+}
+
+.rezititle {
+    font-size: 1.3em;
+}
+
+.rezirating {
+    margin-bottom: 10px;
+}
+
+
+
+
