@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 var express = require("express");
 var app = express();
-const port = process.env.port || 1337;
+const port = process.env.PORT || 1337;
 
 var pt = require("./lib/plattentests");
 var spotify = require("./lib/spotify");
@@ -45,6 +45,7 @@ spotify.getAuthToken(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET).then((result) => 
 }).catch(error => {throw error})
 
 // Server
+console.log("process.env.port: " + process.env.PORT)
 app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
+  console.log(`Server listening at port '${port}'`);
 });
