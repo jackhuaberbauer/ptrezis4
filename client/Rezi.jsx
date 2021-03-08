@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { ReziReferences } from './ReziReferences';
 import SpotifyContext from "./SpotifyContext";
 
 export function Rezi(props) {
@@ -27,9 +28,9 @@ export function Rezi(props) {
   } else {
     cover = <img className="rezicover" src="img/nocover.png"></img>
   }
-  var playbutton = ""
+  var playbutton = undefined
   if (spotifyInfo.accessToken) {
-    playbutton = <button class="playbutton" onClick={play}>Play</button>;
+    playbutton = <button className="playbutton" onClick={play}>Play</button>;
   }
   
   return (
@@ -38,7 +39,7 @@ export function Rezi(props) {
       <div className="rezibody">
         <div className="rezititle">{data.title}</div>
         <div className="rezirating">{data.rating} / 10</div>
-        <div className="rezireferences">{data.references}</div>
+        <ReziReferences references={data.references}></ReziReferences>
         {playbutton}
       </div>
     </div>

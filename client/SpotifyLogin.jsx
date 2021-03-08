@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import SpotifyContext from "./SpotifyContext";
-import { getHashParams } from "./ReziContainer";
+import { getHashParams } from "./AppContainer";
 import SpotifyWebApi from "spotify-web-api-js";
 
 export function SpotifyLogin(props) {

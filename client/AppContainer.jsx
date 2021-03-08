@@ -6,11 +6,10 @@ import { SpotifyLogin } from './SpotifyLogin';
 import { SpotifyPreview } from './SpotifyPreview';
 
 // Main Component
-export function ReziContainer() {
+export function AppContainer() {
   const [loadedPublishingDates, setLoadedPublishingDates] = useState(undefined);
   const [spotifyInfo, setSpotifyInfo] = useState({accessToken: undefined, albumid: undefined})
-  const [testCount, setTestCount] = useState(0)
-  console.log("Rendering ReziContainer");
+  console.log("Rendering AppContainer");
 
 
   if (!loadedPublishingDates) {
@@ -26,7 +25,7 @@ export function ReziContainer() {
   const nextFridayToLoad = loadedPublishingDates[loadedPublishingDates.length - 1].clone().subtract(7, 'days');
   return (
     <SpotifyContext.Provider value={ {spotifyInfo, setSpotifyInfo} }>
-    <div className="rezicontainer">
+    <div className="appcontainer">
       <SpotifyLogin></SpotifyLogin>
       {loadedPublishingDates.map(currDate => <PublishingDateContainer key={currDate.format("DD.MM.yyyy")} publishingDate={currDate.format("DD.MM.yyyy")} />)}
       <button onClick={() => setLoadedPublishingDates([...loadedPublishingDates, nextFridayToLoad])}>Load next</button>
