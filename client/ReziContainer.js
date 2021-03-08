@@ -1,18 +1,21 @@
 import React, { useState, createContext } from 'react';
 import moment from 'moment';
 import { PublishingDateContainer } from "./PublishingDateContainer";
-import AuthContext from './AuthContext'
+import SpotifyContext from './SpotifyContext'
 import { SpotifyLogin } from './SpotifyLogin';
+import { SpotifyPreview } from './SpotifyPreview';
 
 // Main Component
 export function ReziContainer() {
   const [loadedPublishingDates, setLoadedPublishingDates] = useState(undefined);
-  const [spotifytoken, setSpotifytoken] = useState(undefined)
+  const [spotifyInfo, setSpotifyInfo] = useState({accessToken: undefined, albumid: undefined})
+  const [testCount, setTestCount] = useState(0)
+  console.log("Rendering ReziContainer");
+
 
   if (!loadedPublishingDates) {
     // Get last friday
     const today = moment();
-    debugger;
     const lastFriday = today.day() == 5 ? 
       today
       : today.day() == 6 ? today.day(5)
@@ -22,13 +25,14 @@ export function ReziContainer() {
   }
   const nextFridayToLoad = loadedPublishingDates[loadedPublishingDates.length - 1].clone().subtract(7, 'days');
   return (
-    <AuthContext.Provider value={ {spotifytoken, setSpotifytoken} }>
+    <SpotifyContext.Provider value={ {spotifyInfo, setSpotifyInfo} }>
     <div className="rezicontainer">
       <SpotifyLogin></SpotifyLogin>
       {loadedPublishingDates.map(currDate => <PublishingDateContainer key={currDate.format("DD.MM.yyyy")} publishingDate={currDate.format("DD.MM.yyyy")} />)}
       <button onClick={() => setLoadedPublishingDates([...loadedPublishingDates, nextFridayToLoad])}>Load next</button>
+      <SpotifyPreview/>
     </div>  
-    </AuthContext.Provider>
+    </SpotifyContext.Provider>
   );
 }
 

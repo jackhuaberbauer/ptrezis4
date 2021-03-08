@@ -1,17 +1,22 @@
 import React, { useState, useContext } from 'react';
-import AuthContext from './AuthContext'
-
+import {SpotifyEmbeddedPlayer} from './SpotifyEmbeddedPlayer'
+import SpotifyContext from "./SpotifyContext";
 
 export function Rezi(props) {
   const [data, setData] = useState(undefined);
-  const {spotifytoken, setSpotifytoken} = useContext(AuthContext);
-  
+  const { spotifyInfo, setSpotifyInfo } = useContext(SpotifyContext);
+
+  const play = () => {
+    const newInfo = Object.assign({}, spotifyInfo)
+    newInfo.albumid = data.spotifyid;
+    setSpotifyInfo(newInfo)
+  }
+
 
   if (!data) {
     fetch(`/rezidetails/${props.id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setData(data);
       });
     return <div>Loading</div>;
@@ -23,15 +28,10 @@ export function Rezi(props) {
   } else {
     cover = <img className="rezicover" src="img/nocover.png"></img>
   }
-
-  var player;
-  if (data.spotifyid && spotifytoken){
-    const spotifyurl = "https://open.spotify.com/embed/album/" + data.spotifyid
-    // player = <iframe src={spotifyurl} width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-  } else {
-    player = <div>Login first</div>
+  var playbutton = ""
+  if (spotifyInfo.accessToken) {
+    playbutton = <button onClick={play}>Play</button>;
   }
-
   
   return (
     <div className="rezi">
@@ -40,8 +40,7 @@ export function Rezi(props) {
         <div className="rezititle">{data.title}</div>
         <div className="rezirating">{data.rating} / 10</div>
         <div className="rezireferences">{data.references}</div>
-        {player}
-
+        {playbutton}
       </div>
     </div>
   );

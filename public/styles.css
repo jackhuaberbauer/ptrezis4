@@ -49,6 +49,12 @@ body {
     margin-bottom: 10px;
 }
 
+#spotifyplayer {
+    position: fixed;
+    bottom:0px;
+    width: 100%;
+}
+
 
 
 
