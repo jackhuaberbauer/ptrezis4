@@ -1,6 +1,24 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./client/AuthContext.js":
+/*!*******************************!*\
+  !*** ./client/AuthContext.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var AuthContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AuthContext);
+
+/***/ }),
+
 /***/ "./client/PublishingDateContainer.js":
 /*!*******************************************!*\
   !*** ./client/PublishingDateContainer.js ***!
@@ -81,6 +99,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Rezi": () => (/* binding */ Rezi)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _AuthContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AuthContext */ "./client/AuthContext.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -94,11 +113,16 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
+
 function Rezi(props) {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined),
       _useState2 = _slicedToArray(_useState, 2),
       data = _useState2[0],
       setData = _useState2[1];
+
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_AuthContext__WEBPACK_IMPORTED_MODULE_1__.default),
+      spotifytoken = _useContext.spotifytoken,
+      setSpotifytoken = _useContext.setSpotifytoken;
 
   if (!data) {
     fetch("/rezidetails/".concat(props.id)).then(function (response) {
@@ -124,6 +148,14 @@ function Rezi(props) {
     });
   }
 
+  var player;
+
+  if (data.spotifyid && spotifytoken) {
+    var spotifyurl = "https://open.spotify.com/embed/album/" + data.spotifyid; // player = <iframe src={spotifyurl} width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+  } else {
+    player = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Login first");
+  }
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "rezi"
   }, cover, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -134,7 +166,7 @@ function Rezi(props) {
     className: "rezirating"
   }, data.rating, " / 10"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "rezireferences"
-  }, data.references)));
+  }, data.references), player));
 }
 
 /***/ }),
@@ -148,12 +180,15 @@ function Rezi(props) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ReziContainer": () => (/* binding */ ReziContainer)
+/* harmony export */   "ReziContainer": () => (/* binding */ ReziContainer),
+/* harmony export */   "getHashParams": () => (/* binding */ getHashParams)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _PublishingDateContainer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PublishingDateContainer */ "./client/PublishingDateContainer.js");
+/* harmony import */ var _AuthContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AuthContext */ "./client/AuthContext.js");
+/* harmony import */ var _SpotifyLogin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SpotifyLogin */ "./client/SpotifyLogin.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -176,6 +211,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
  // Main Component
 
 function ReziContainer() {
@@ -184,18 +221,29 @@ function ReziContainer() {
       loadedPublishingDates = _useState2[0],
       setLoadedPublishingDates = _useState2[1];
 
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined),
+      _useState4 = _slicedToArray(_useState3, 2),
+      spotifytoken = _useState4[0],
+      setSpotifytoken = _useState4[1];
+
   if (!loadedPublishingDates) {
     // Get last friday
     var today = moment__WEBPACK_IMPORTED_MODULE_1___default()();
-    var lastFriday = today.day() == 5 ? today : today.day(-2);
+    debugger;
+    var lastFriday = today.day() == 5 ? today : today.day() == 6 ? today.day(5) : today.day(-2);
     setLoadedPublishingDates([lastFriday]);
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Loading");
   }
 
   var nextFridayToLoad = loadedPublishingDates[loadedPublishingDates.length - 1].clone().subtract(7, 'days');
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AuthContext__WEBPACK_IMPORTED_MODULE_3__.default.Provider, {
+    value: {
+      spotifytoken: spotifytoken,
+      setSpotifytoken: setSpotifytoken
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "rezicontainer"
-  }, loadedPublishingDates.map(function (currDate) {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SpotifyLogin__WEBPACK_IMPORTED_MODULE_4__.SpotifyLogin, null), loadedPublishingDates.map(function (currDate) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PublishingDateContainer__WEBPACK_IMPORTED_MODULE_2__.PublishingDateContainer, {
       key: currDate.format("DD.MM.yyyy"),
       publishingDate: currDate.format("DD.MM.yyyy")
@@ -204,7 +252,96 @@ function ReziContainer() {
     onClick: function onClick() {
       return setLoadedPublishingDates([].concat(_toConsumableArray(loadedPublishingDates), [nextFridayToLoad]));
     }
-  }, "Load next"));
+  }, "Load next")));
+}
+function getHashParams() {
+  var hashParams = {};
+
+  var e,
+      a = /\+/g,
+      // Regex for replacing addition symbol with a space
+  r = /([^&;=]+)=?([^&;]*)/g,
+      d = function d(s) {
+    return decodeURIComponent(s.replace(a, " "));
+  },
+      q = window.location.hash.substring(1);
+
+  while (e = r.exec(q)) {
+    hashParams[d(e[1])] = d(e[2]);
+  }
+
+  return hashParams;
+}
+
+/***/ }),
+
+/***/ "./client/SpotifyLogin.js":
+/*!********************************!*\
+  !*** ./client/SpotifyLogin.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SpotifyLogin": () => (/* binding */ SpotifyLogin)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _AuthContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AuthContext */ "./client/AuthContext.js");
+/* harmony import */ var _ReziContainer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ReziContainer */ "./client/ReziContainer.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+function SpotifyLogin(props) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      spotifyAccessToken = _useState2[0],
+      setSpotifyAccessToken = _useState2[1];
+
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_AuthContext__WEBPACK_IMPORTED_MODULE_1__.default),
+      spotifytoken = _useContext.spotifytoken,
+      setSpotifytoken = _useContext.setSpotifytoken;
+
+  var hash = (0,_ReziContainer__WEBPACK_IMPORTED_MODULE_2__.getHashParams)();
+
+  if (!spotifyAccessToken && hash.access_token) {
+    setSpotifyAccessToken(hash.access_token);
+    window.location.hash = '';
+    setSpotifytoken("Spotify features in progress");
+  }
+
+  var login = function login() {
+    console.log("Login");
+    var CLIENT_ID = "cfb7e3670ce0436999ed4a498efb52c7"; // Your client id
+    // const REDIRECT_URI = $location.absUrl().split('?')[0].replace("index.html", "") + "index.html"
+
+    var REDIRECT_URI = window.location.origin + "/index.html";
+    var scopes = "playlist-modify-private";
+    var authUrl = "https://accounts.spotify.com/authorize" + "?client_id=".concat(encodeURIComponent(CLIENT_ID)) + "&response_type=token" + "&scope=".concat(encodeURIComponent(scopes)) + "&redirect_uri=".concat(encodeURIComponent(REDIRECT_URI));
+    window.location.href = authUrl;
+  };
+
+  if (!spotifyAccessToken) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      onClick: login
+    }, "Login"));
+  }
+
+  if (spotifyAccessToken) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Logged In: ", spotifytoken);
+  }
 }
 
 /***/ }),
@@ -51751,11 +51888,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var _ReziContainer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ReziContainer */ "./client/ReziContainer.js");
+/* harmony import */ var _AuthContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AuthContext */ "./client/AuthContext.js");
+
 
 
 
 var domContainer = document.querySelector('#app');
-react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ReziContainer__WEBPACK_IMPORTED_MODULE_2__.ReziContainer), domContainer);
+react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ReziContainer__WEBPACK_IMPORTED_MODULE_2__.ReziContainer, null), domContainer);
 })();
 
 /******/ })()

@@ -31,6 +31,7 @@ app.get("/rezidetails/:id", async (req, res) => {
   if (spotifyInfos.albums && spotifyInfos.albums.items.length > 0) {
     reziDetails.spotifyInfos = spotifyInfos;
     reziDetails.albumcover = spotifyInfos.albums.items[0].images[0].url
+    reziDetails.spotifyid = spotifyInfos.albums.items[0].id
   } 
   res.json(reziDetails);
  

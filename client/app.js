@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ReziContainer } from './ReziContainer';
+import AuthContext from './AuthContext'
 
 const domContainer = document.querySelector('#app');
-ReactDOM.render(React.createElement(ReziContainer), domContainer);
+ReactDOM.render(<ReziContainer></ReziContainer>, domContainer);
 
 
