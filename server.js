@@ -23,7 +23,7 @@ app.get("/rezis", async (req, res) => {
   var reziIds = await pt.getRezisForDate(date);
   res.json(reziIds); 
  
-});
+}); 
 
 app.get("/rezidetails/:id", async (req, res) => {
   var reziDetails = await pt.getReziDetails(req.params.id);

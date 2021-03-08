@@ -30,8 +30,9 @@ export function ReziContainer() {
       <SpotifyLogin></SpotifyLogin>
       {loadedPublishingDates.map(currDate => <PublishingDateContainer key={currDate.format("DD.MM.yyyy")} publishingDate={currDate.format("DD.MM.yyyy")} />)}
       <button onClick={() => setLoadedPublishingDates([...loadedPublishingDates, nextFridayToLoad])}>Load next</button>
-      <SpotifyPreview/>
-    </div>  
+      
+    </div> 
+    <SpotifyPreview/> 
     </SpotifyContext.Provider>
   );
 }

@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import {SpotifyEmbeddedPlayer} from './SpotifyEmbeddedPlayer'
 import SpotifyContext from "./SpotifyContext";
 
 export function Rezi(props) {
@@ -30,7 +29,7 @@ export function Rezi(props) {
   }
   var playbutton = ""
   if (spotifyInfo.accessToken) {
-    playbutton = <button onClick={play}>Play</button>;
+    playbutton = <button class="playbutton" onClick={play}>Play</button>;
   }
   
   return (

@@ -676,8 +676,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Rezi": () => (/* binding */ Rezi)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _SpotifyEmbeddedPlayer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SpotifyEmbeddedPlayer */ "./client/SpotifyEmbeddedPlayer.js");
-/* harmony import */ var _SpotifyContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SpotifyContext */ "./client/SpotifyContext.js");
+/* harmony import */ var _SpotifyContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SpotifyContext */ "./client/SpotifyContext.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -692,14 +691,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 function Rezi(props) {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined),
       _useState2 = _slicedToArray(_useState, 2),
       data = _useState2[0],
       setData = _useState2[1];
 
-  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_SpotifyContext__WEBPACK_IMPORTED_MODULE_2__.default),
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_SpotifyContext__WEBPACK_IMPORTED_MODULE_1__.default),
       spotifyInfo = _useContext.spotifyInfo,
       setSpotifyInfo = _useContext.setSpotifyInfo;
 
@@ -736,6 +734,7 @@ function Rezi(props) {
 
   if (spotifyInfo.accessToken) {
     playbutton = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      "class": "playbutton",
       onClick: play
     }, "Play");
   }
@@ -847,7 +846,7 @@ function ReziContainer() {
     onClick: function onClick() {
       return setLoadedPublishingDates([].concat(_toConsumableArray(loadedPublishingDates), [nextFridayToLoad]));
     }
-  }, "Load next"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SpotifyPreview__WEBPACK_IMPORTED_MODULE_5__.SpotifyPreview, null)));
+  }, "Load next")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SpotifyPreview__WEBPACK_IMPORTED_MODULE_5__.SpotifyPreview, null));
 }
 function getHashParams() {
   var hashParams = {};
@@ -885,79 +884,6 @@ __webpack_require__.r(__webpack_exports__);
 
 var SpotifyContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({});
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SpotifyContext);
-
-/***/ }),
-
-/***/ "./client/SpotifyEmbeddedPlayer.js":
-/*!*****************************************!*\
-  !*** ./client/SpotifyEmbeddedPlayer.js ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SpotifyEmbeddedPlayer": () => (/* binding */ SpotifyEmbeddedPlayer)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_spotify_web_playback__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-spotify-web-playback */ "./node_modules/react-spotify-web-playback/esm/index.js");
-/* harmony import */ var _SpotifyContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SpotifyContext */ "./client/SpotifyContext.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-
-
-function SpotifyEmbeddedPlayer(props) {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-      _useState2 = _slicedToArray(_useState, 2),
-      show = _useState2[0],
-      setShow = _useState2[1];
-
-  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_SpotifyContext__WEBPACK_IMPORTED_MODULE_2__.default),
-      spotifyInfo = _useContext.spotifyInfo,
-      setSpotifyInfo = _useContext.setSpotifyInfo;
-
-  var activate = function activate() {
-    setShow(true);
-  };
-
-  if (props.spotifyid && !show) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-      onClick: activate
-    }, "Show Preview");
-  }
-
-  if (props.spotifyid && show) {
-    var spotifyurl = "https://open.spotify.com/embed/album/" + props.spotifyid;
-    var player = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("iframe", {
-      src: spotifyurl,
-      width: "300",
-      height: "380",
-      frameBorder: "0",
-      allowtransparency: "true",
-      allow: "encrypted-media"
-    }); // player = <div>{props.id}</div>
-    // return <div>{player}</div>
-
-    var uris = ["spotify:album:".concat(props.spotifyid)];
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_spotify_web_playback__WEBPACK_IMPORTED_MODULE_1__.default, {
-      token: spotifyInfo.accessToken,
-      uris: uris
-    });
-  }
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Fehler bei Preview");
-}
 
 /***/ }),
 
