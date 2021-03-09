@@ -23,12 +23,30 @@ export function AppContainer() {
     return <div>Loading</div>;
   }
   const nextFridayToLoad = loadedPublishingDates[loadedPublishingDates.length - 1].clone().subtract(7, 'days');
+
+  var triggered = false;
+  window.addEventListener("scroll", function infiniteLoad() {
+      const triggerBottom = window.innerHeight;
+      // console.log(triggerBottom);
+      const loadMore = document.querySelector("#loadMore");
+      const currentPos = loadMore.getBoundingClientRect().top
+      // console.log(loadMore.getBoundingClientRect().top);
+      if (currentPos <= triggerBottom && triggered == false) {
+        triggered =  true;
+        this.removeEventListener('scroll', infiniteLoad);
+        setLoadedPublishingDates([...loadedPublishingDates, nextFridayToLoad]);
+    }
+
+  });
+  
   return (
     <SpotifyContext.Provider value={ {spotifyInfo, setSpotifyInfo} }>
     <div className="appcontainer">
       <SpotifyLogin></SpotifyLogin>
-      {loadedPublishingDates.map(currDate => <PublishingDateContainer key={currDate.format("DD.MM.yyyy")} publishingDate={currDate.format("DD.MM.yyyy")} />)}
-      <button onClick={() => setLoadedPublishingDates([...loadedPublishingDates, nextFridayToLoad])}>Load next</button>
+      
+        {loadedPublishingDates.map(currDate => <PublishingDateContainer key={currDate.format("DD.MM.yyyy")} publishingDate={currDate.format("DD.MM.yyyy")} />)}
+
+      <button id="loadMore" onClick={() => setLoadedPublishingDates([...loadedPublishingDates, nextFridayToLoad])}>Load next</button>
       
     </div> 
     <SpotifyPreview/> 

@@ -11,9 +11,14 @@ body {
     margin-bottom: 100px;
 }
 
+.rezicontainer {
+    min-height:1000px;
+}
+
 .publishingDateContainer {
     width: 80vw;
     max-width: 1200px;
+    min-height: 1000px;
 }
 
 .publishingDate {

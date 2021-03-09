@@ -666,6 +666,19 @@ function AppContainer() {
   }
 
   var nextFridayToLoad = loadedPublishingDates[loadedPublishingDates.length - 1].clone().subtract(7, 'days');
+  var triggered = false;
+  window.addEventListener("scroll", function infiniteLoad() {
+    var triggerBottom = window.innerHeight; // console.log(triggerBottom);
+
+    var loadMore = document.querySelector("#loadMore");
+    var currentPos = loadMore.getBoundingClientRect().top; // console.log(loadMore.getBoundingClientRect().top);
+
+    if (currentPos <= triggerBottom && triggered == false) {
+      triggered = true;
+      this.removeEventListener('scroll', infiniteLoad);
+      setLoadedPublishingDates([].concat(_toConsumableArray(loadedPublishingDates), [nextFridayToLoad]));
+    }
+  });
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SpotifyContext__WEBPACK_IMPORTED_MODULE_3__.default.Provider, {
     value: {
       spotifyInfo: spotifyInfo,
@@ -679,6 +692,7 @@ function AppContainer() {
       publishingDate: currDate.format("DD.MM.yyyy")
     });
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    id: "loadMore",
     onClick: function onClick() {
       return setLoadedPublishingDates([].concat(_toConsumableArray(loadedPublishingDates), [nextFridayToLoad]));
     }
