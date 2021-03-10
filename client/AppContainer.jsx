@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import { PublishingDateContainer } from "./PublishingDateContainer";
 import SpotifyContext from './SpotifyContext'
@@ -11,7 +11,7 @@ export function AppContainer() {
   const [spotifyInfo, setSpotifyInfo] = useState({accessToken: undefined, albumid: undefined})
   console.log("Rendering AppContainer");
 
-
+  // Initial loading
   if (!loadedPublishingDates) {
     // Get last friday
     const today = moment();
@@ -24,14 +24,14 @@ export function AppContainer() {
   }
   const nextFridayToLoad = loadedPublishingDates[loadedPublishingDates.length - 1].clone().subtract(7, 'days');
 
+  // Infinite loading
   var triggered = false;
   window.addEventListener("scroll", function infiniteLoad() {
       const triggerBottom = window.innerHeight;
-      // console.log(triggerBottom);
       const loadMore = document.querySelector("#loadMore");
       const currentPos = loadMore.getBoundingClientRect().top
-      // console.log(loadMore.getBoundingClientRect().top);
-      if (currentPos <= triggerBottom && triggered == false) {
+      console.log(currentPos, triggerBottom);
+      if (currentPos <= triggerBottom + 1500 && triggered == false) {
         triggered =  true;
         this.removeEventListener('scroll', infiniteLoad);
         setLoadedPublishingDates([...loadedPublishingDates, nextFridayToLoad]);

@@ -655,7 +655,7 @@ function AppContainer() {
       spotifyInfo = _useState4[0],
       setSpotifyInfo = _useState4[1];
 
-  console.log("Rendering AppContainer");
+  console.log("Rendering AppContainer"); // Initial loading
 
   if (!loadedPublishingDates) {
     // Get last friday
@@ -665,15 +665,16 @@ function AppContainer() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Loading");
   }
 
-  var nextFridayToLoad = loadedPublishingDates[loadedPublishingDates.length - 1].clone().subtract(7, 'days');
+  var nextFridayToLoad = loadedPublishingDates[loadedPublishingDates.length - 1].clone().subtract(7, 'days'); // Infinite loading
+
   var triggered = false;
   window.addEventListener("scroll", function infiniteLoad() {
-    var triggerBottom = window.innerHeight; // console.log(triggerBottom);
-
+    var triggerBottom = window.innerHeight;
     var loadMore = document.querySelector("#loadMore");
-    var currentPos = loadMore.getBoundingClientRect().top; // console.log(loadMore.getBoundingClientRect().top);
+    var currentPos = loadMore.getBoundingClientRect().top;
+    console.log(currentPos, triggerBottom);
 
-    if (currentPos <= triggerBottom && triggered == false) {
+    if (currentPos <= triggerBottom + 1500 && triggered == false) {
       triggered = true;
       this.removeEventListener('scroll', infiniteLoad);
       setLoadedPublishingDates([].concat(_toConsumableArray(loadedPublishingDates), [nextFridayToLoad]));

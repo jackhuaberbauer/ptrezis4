@@ -21,8 +21,8 @@ app.get("/rezis", async (req, res) => {
 
   console.log(`Query rezis (date: ${date})`)
   var reziIds = await pt.getRezisForDate(date);
+  
   res.json(reziIds); 
- 
 }); 
 
 app.get("/rezidetails/:id", async (req, res) => {
