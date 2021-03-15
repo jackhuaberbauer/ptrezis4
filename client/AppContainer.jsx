@@ -42,6 +42,7 @@ export function AppContainer() {
   return (
     <SpotifyContext.Provider value={ {spotifyInfo, setSpotifyInfo} }>
     <div className="appcontainer">
+      
       <SpotifyLogin></SpotifyLogin>
       <CurrentRezisContainer/>
       
