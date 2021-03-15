@@ -15,10 +15,11 @@ body {
     min-height:1000px;
 }
 
-.publishingDateContainer {
+.publishingDateContainer, .currentRezisContainer {
     width: 80vw;
     max-width: 1200px;
     min-height: 1000px;
+    margin-top: 20px;
 }
 
 .publishingDate {
@@ -86,4 +87,9 @@ button:hover {
     margin-top: 20px;
 }
 
+.references {
+    margin-top: 20px;
+    cursor: pointer;
+    text-align:justify;
+}
 

@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { Rezi } from "./Rezi";
-import PropTypes from 'prop-types';
 
 
-export function PublishingDateContainer(props) {
-  console.log("Render PublishingDateContainer")
+export function CurrentRezisContainer() {
+  console.log("Render CurrentRezisContainer")
   const [data, setData] = useState(undefined);
-
 
   if (!data) {
     // Fetch data
-    fetch(`/rezis?date=${props.publishingDate}`)
+    fetch(`/currentrezis`)
       .then((response) => response.json())
       .then((data) => {
         setData(data);
@@ -25,13 +23,9 @@ export function PublishingDateContainer(props) {
   }
 
   return (
-    <div className="publishingDateContainer">
-      <div className="publishingDate">{props.publishingDate}</div>
-      {content}
+    <div className="currentRezisContainer">
+      <div className="publishingDate">CURRENT REZIS</div>
+        {content}
     </div>
   );
-}
-
-PublishingDateContainer.propTypes = {
-  publishingDate: PropTypes.string
 }

@@ -4,6 +4,7 @@ import { PublishingDateContainer } from "./PublishingDateContainer";
 import SpotifyContext from './SpotifyContext'
 import { SpotifyLogin } from './SpotifyLogin';
 import { SpotifyPreview } from './SpotifyPreview';
+import { CurrentRezisContainer } from './CurrentRezisContainer';
 
 // Main Component
 export function AppContainer() {
@@ -30,7 +31,6 @@ export function AppContainer() {
       const triggerBottom = window.innerHeight;
       const loadMore = document.querySelector("#loadMore");
       const currentPos = loadMore.getBoundingClientRect().top
-      console.log(currentPos, triggerBottom);
       if (currentPos <= triggerBottom + 1500 && triggered == false) {
         triggered =  true;
         this.removeEventListener('scroll', infiniteLoad);
@@ -43,6 +43,7 @@ export function AppContainer() {
     <SpotifyContext.Provider value={ {spotifyInfo, setSpotifyInfo} }>
     <div className="appcontainer">
       <SpotifyLogin></SpotifyLogin>
+      <CurrentRezisContainer/>
       
         {loadedPublishingDates.map(currDate => <PublishingDateContainer key={currDate.format("DD.MM.yyyy")} publishingDate={currDate.format("DD.MM.yyyy")} />)}
 

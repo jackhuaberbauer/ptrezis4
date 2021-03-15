@@ -25,6 +25,12 @@ app.get("/rezis", async (req, res) => {
   res.json(reziIds); 
 }); 
 
+app.get("/currentrezis", async (req, res) => {
+  console.log(`Query current rezis`)
+  var reziIds = await pt.getCurrentRezis();
+  res.json(reziIds); 
+}); 
+
 app.get("/rezidetails/:id", async (req, res) => {
   var reziDetails = await pt.getReziDetails(req.params.id);
   var spotifyInfos = await spotify.getSpotifyInfos(reziDetails.title, spotifytoken);

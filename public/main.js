@@ -614,6 +614,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SpotifyContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SpotifyContext */ "./client/SpotifyContext.js");
 /* harmony import */ var _SpotifyLogin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SpotifyLogin */ "./client/SpotifyLogin.jsx");
 /* harmony import */ var _SpotifyPreview__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./SpotifyPreview */ "./client/SpotifyPreview.jsx");
+/* harmony import */ var _CurrentRezisContainer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./CurrentRezisContainer */ "./client/CurrentRezisContainer.jsx");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -633,6 +634,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -672,7 +674,6 @@ function AppContainer() {
     var triggerBottom = window.innerHeight;
     var loadMore = document.querySelector("#loadMore");
     var currentPos = loadMore.getBoundingClientRect().top;
-    console.log(currentPos, triggerBottom);
 
     if (currentPos <= triggerBottom + 1500 && triggered == false) {
       triggered = true;
@@ -687,7 +688,7 @@ function AppContainer() {
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "appcontainer"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SpotifyLogin__WEBPACK_IMPORTED_MODULE_4__.SpotifyLogin, null), loadedPublishingDates.map(function (currDate) {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SpotifyLogin__WEBPACK_IMPORTED_MODULE_4__.SpotifyLogin, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CurrentRezisContainer__WEBPACK_IMPORTED_MODULE_6__.CurrentRezisContainer, null), loadedPublishingDates.map(function (currDate) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PublishingDateContainer__WEBPACK_IMPORTED_MODULE_2__.PublishingDateContainer, {
       key: currDate.format("DD.MM.yyyy"),
       publishingDate: currDate.format("DD.MM.yyyy")
@@ -716,6 +717,74 @@ function getHashParams() {
   }
 
   return hashParams;
+}
+
+/***/ }),
+
+/***/ "./client/CurrentRezisContainer.jsx":
+/*!******************************************!*\
+  !*** ./client/CurrentRezisContainer.jsx ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CurrentRezisContainer": () => (/* binding */ CurrentRezisContainer)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _Rezi__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Rezi */ "./client/Rezi.jsx");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+function CurrentRezisContainer() {
+  console.log("Render CurrentRezisContainer");
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined),
+      _useState2 = _slicedToArray(_useState, 2),
+      data = _useState2[0],
+      setData = _useState2[1];
+
+  if (!data) {
+    // Fetch data
+    fetch("/currentrezis").then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      setData(data);
+    });
+  }
+
+  var content = undefined;
+
+  if (data) {
+    content = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "reziGrid"
+    }, data.map(function (id) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Rezi__WEBPACK_IMPORTED_MODULE_1__.Rezi, {
+        key: id,
+        id: id
+      });
+    }));
+  } else {
+    content = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Loading");
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "currentRezisContainer"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "publishingDate"
+  }, "CURRENT REZIS"), content);
 }
 
 /***/ }),
@@ -765,25 +834,28 @@ function PublishingDateContainer(props) {
     }).then(function (data) {
       setData(data);
     });
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      className: "publishingDateContainer"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      className: "publishingDate"
-    }, props.publishingDate), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Loading"));
+  }
+
+  var content = undefined;
+
+  if (data) {
+    content = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "reziGrid"
+    }, data.map(function (id) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Rezi__WEBPACK_IMPORTED_MODULE_1__.Rezi, {
+        key: id,
+        id: id
+      });
+    }));
+  } else {
+    content = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Loading");
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "publishingDateContainer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "publishingDate"
-  }, props.publishingDate), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "reziGrid"
-  }, data.map(function (id) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Rezi__WEBPACK_IMPORTED_MODULE_1__.Rezi, {
-      key: id,
-      id: id
-    });
-  })));
+  }, props.publishingDate), content);
 }
 PublishingDateContainer.propTypes = {
   publishingDate: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string)
@@ -826,6 +898,11 @@ function Rezi(props) {
       data = _useState2[0],
       setData = _useState2[1];
 
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      showAllRezis = _useState4[0],
+      setShowAllRezis = _useState4[1];
+
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_SpotifyContext__WEBPACK_IMPORTED_MODULE_2__.default),
       spotifyInfo = _useContext.spotifyInfo,
       setSpotifyInfo = _useContext.setSpotifyInfo;
@@ -836,10 +913,15 @@ function Rezi(props) {
     setSpotifyInfo(newInfo);
   };
 
+  var toggleShowAllReferences = function toggleShowAllReferences() {
+    setShowAllRezis(!showAllRezis);
+  };
+
   if (!data) {
     fetch("/rezidetails/".concat(props.id)).then(function (response) {
       return response.json();
     }).then(function (data) {
+      console.log(data);
       setData(data);
     });
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Loading");
@@ -861,11 +943,19 @@ function Rezi(props) {
 
   var playbutton = undefined;
 
-  if (spotifyInfo.accessToken) {
+  if (spotifyInfo.accessToken && data.spotifyInfos) {
     playbutton = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       className: "playbutton",
       onClick: play
     }, "Play");
+  }
+
+  var references = undefined;
+
+  if (showAllRezis) {
+    references = data.references;
+  } else {
+    references = data.references.substring(0, 300) + "...";
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -874,11 +964,15 @@ function Rezi(props) {
     className: "rezibody"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "rezititle"
-  }, data.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, data.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "rezidate"
+  }, data.datestring), " - ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "rezirating"
-  }, data.rating, " / 10"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ReziReferences__WEBPACK_IMPORTED_MODULE_1__.ReziReferences, {
-    references: data.references
-  }), playbutton));
+  }, data.rating, " / 10 ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    onClick: toggleShowAllReferences
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ReziReferences__WEBPACK_IMPORTED_MODULE_1__.ReziReferences, {
+    references: references
+  })), playbutton));
 }
 
 /***/ }),
