@@ -21,7 +21,7 @@ export function Rezi(props) {
     fetch(`/rezidetails/${props.id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setData(data);
       });
     return <div>Loading</div>;
@@ -44,9 +44,19 @@ export function Rezi(props) {
   } else {
     references = data.references.substring(0,300) + "...";
   }
+
+  var marked = undefined;
+  if (spotifyInfo.followedArtists && spotifyInfo.followedArtists.length > 0) {
+    for (const artist of spotifyInfo.followedArtists) {
+      if (data.title.includes(artist)) {
+        marked = true;
+        break;
+      }
+    }
+  }
   
   return (
-    <div className="rezi">
+    <div className={`rezi ${marked ? 'marked' : ''}`}>
       {cover}
       <div className="rezibody">
         <div className="rezititle">{data.title}</div>

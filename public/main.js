@@ -877,6 +877,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _ReziReferences__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ReziReferences */ "./client/ReziReferences.jsx");
 /* harmony import */ var _SpotifyContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SpotifyContext */ "./client/SpotifyContext.js");
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -921,7 +923,7 @@ function Rezi(props) {
     fetch("/rezidetails/".concat(props.id)).then(function (response) {
       return response.json();
     }).then(function (data) {
-      console.log(data);
+      // console.log(data);
       setData(data);
     });
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Loading");
@@ -958,8 +960,30 @@ function Rezi(props) {
     references = data.references.substring(0, 300) + "...";
   }
 
+  var marked = undefined;
+
+  if (spotifyInfo.followedArtists && spotifyInfo.followedArtists.length > 0) {
+    var _iterator = _createForOfIteratorHelper(spotifyInfo.followedArtists),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var artist = _step.value;
+
+        if (data.title.includes(artist)) {
+          marked = true;
+          break;
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+  }
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "rezi"
+    className: "rezi ".concat(marked ? 'marked' : '')
   }, cover, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "rezibody"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -991,12 +1015,65 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _SpotifyContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SpotifyContext */ "./client/SpotifyContext.js");
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 function ReziReferences(props) {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_SpotifyContext__WEBPACK_IMPORTED_MODULE_2__.default),
+      spotifyInfo = _useContext.spotifyInfo,
+      setSpotifyInfo = _useContext.setSpotifyInfo;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      followedReferences = _useState2[0],
+      setFollowedReferences = _useState2[1];
+
+  if (followedReferences.length == 0 && spotifyInfo.followedArtists && spotifyInfo.followedArtists.length > 0) {
+    var tempFollowedReferences = [];
+
+    var _iterator = _createForOfIteratorHelper(spotifyInfo.followedArtists),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var artist = _step.value;
+
+        if (props.references.includes(artist)) {
+          tempFollowedReferences.push(artist);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    if (tempFollowedReferences.length > 0) setFollowedReferences(tempFollowedReferences);
+  }
+
+  var followedReferencesDiv = followedReferences.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "followedReferences"
+  }, followedReferences.join("; ")) : "";
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "references"
-  }, props.references);
+  }, followedReferencesDiv, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "allReferences"
+  }, props.references));
 }
 ReziReferences.propTypes = {
   references: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string)
@@ -1041,6 +1118,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AppContainer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AppContainer */ "./client/AppContainer.jsx");
 /* harmony import */ var spotify_web_api_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! spotify-web-api-js */ "./node_modules/spotify-web-api-js/src/spotify-web-api.js");
 /* harmony import */ var spotify_web_api_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(spotify_web_api_js__WEBPACK_IMPORTED_MODULE_3__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -1084,9 +1169,41 @@ function SpotifyLogin(props) {
     // const REDIRECT_URI = $location.absUrl().split('?')[0].replace("index.html", "") + "index.html"
 
     var REDIRECT_URI = window.location.origin + "/index.html";
-    var scopes = "streaming, user-read-email, user-read-private, user-read-playback-state, user-modify-playback-state, user-library-read, user-library-modify";
+    var scopes = "streaming, user-read-email, user-read-private, user-read-playback-state, user-modify-playback-state, user-library-read, user-library-modify, user-follow-read";
     var authUrl = "https://accounts.spotify.com/authorize" + "?client_id=".concat(encodeURIComponent(CLIENT_ID)) + "&response_type=token" + "&scope=".concat(encodeURIComponent(scopes)) + "&redirect_uri=".concat(encodeURIComponent(REDIRECT_URI));
     window.location.href = authUrl;
+  };
+  /** Recursive function because Spotify API allows only a limit of 50 */
+
+
+  var loadAllFollowedArtists = function loadAllFollowedArtists(artists, after) {
+    var promise = new Promise(function (resolve) {
+      // Termination Condition
+      if (artists != undefined && !after) {
+        resolve(artists);
+        return;
+      } //First run
+
+
+      if (artists == undefined) artists = []; //Normal run
+
+      console.log("Call spotify API | limit: '".concat(10, "' | after: '", after, "'"));
+      var body = after ? {
+        limit: 10,
+        after: after
+      } : {
+        limit: 10
+      };
+      spotify.getFollowedArtists(body).then(function (result) {
+        var resultArtists = result.artists.items.map(function (item) {
+          return item.name;
+        });
+        loadAllFollowedArtists([].concat(_toConsumableArray(artists), _toConsumableArray(resultArtists)), result.artists.cursors.after).then(function (obj) {
+          resolve(obj);
+        });
+      });
+    });
+    return promise;
   };
 
   if (!spotifyInfo.accessToken) {
@@ -1100,8 +1217,15 @@ function SpotifyLogin(props) {
     spotify.setAccessToken(spotifyInfo.accessToken);
 
     if (!user) {
+      spotify.getFollowedArtists({});
       spotify.getMe().then(function (retrievedUser) {
         setUser(retrievedUser);
+      });
+      loadAllFollowedArtists(undefined, undefined).then(function (result) {
+        console.log(result);
+        var newInfo = Object.assign({}, spotifyInfo);
+        newInfo.followedArtists = result;
+        setSpotifyInfo(newInfo);
       });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Loading user info...");
     }

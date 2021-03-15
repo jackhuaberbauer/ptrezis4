@@ -87,9 +87,22 @@ button:hover {
     margin-top: 20px;
 }
 
-.references {
+.allReferences {
     margin-top: 20px;
     cursor: pointer;
     text-align:justify;
 }
 
+.followedReferences {
+    margin-top: 20px;
+    text-align:justify;
+    font-weight: bold;
+}
+
+.followedReferences:before {
+    content: '⭐'
+}
+
+.marked > .rezibody > .rezititle:before {
+    content: '⭐'
+}
