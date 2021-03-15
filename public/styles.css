@@ -1,7 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
+
+
 body {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .appcontainer {
@@ -36,7 +41,7 @@ body {
 .rezi {
     margin: 10px;
     min-height: 100px;
-    border: 1px solid rgba(0, 0, 0, 0.125);;
+    border: 1px dotted rgba(0, 0, 0, 0.125);;
     
 }
 
@@ -87,22 +92,71 @@ button:hover {
     margin-top: 20px;
 }
 
+.references {
+    margin-top:20px;
+    font-weight: 300;
+}
+
+.followedReference {
+    text-align:justify;
+    font-weight: 600;
+}
+
+.followedReference:before {
+    content: '⭐'
+}
+
 .allReferences {
     margin-top: 20px;
     cursor: pointer;
     text-align:justify;
 }
 
-.followedReferences {
-    margin-top: 20px;
-    text-align:justify;
-    font-weight: bold;
-}
-
-.followedReferences:before {
-    content: '⭐'
-}
-
 .marked > .rezibody > .rezititle:before {
     content: '⭐'
+}
+
+.rezi-7 {
+    border-color: #ffc107;
+}
+
+.rezi-7 .rezirating {
+    color: #ffc107;
+}
+
+.rezi-8 {
+    border-color: #28a745;
+}
+
+.rezi-8 .rezirating {
+    color: #28a745;
+}
+
+.rezi-9 {
+    border-color: #dc3545
+}
+
+.rezi-9 .rezirating {
+    color: #dc3545;
+}
+
+.rezi-10 {
+    border-color: #dc3545
+}
+
+.rezi-10 .rezirating {
+    color: #dc3545;
+}
+
+#spotifylogin {
+    display:flex;
+    width: 80vw;
+    max-width: 1200px;
+    flex-direction: row;
+    justify-content: space-between;;
+}
+
+.profilepic {
+    height: 60px;
+    border-radius: 50px;
 }

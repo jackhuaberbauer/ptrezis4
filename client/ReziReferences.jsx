@@ -18,7 +18,7 @@ export function ReziReferences(props) {
     }
 
     const followedReferencesDiv = followedReferences.length > 0
-        ? <div className="followedReferences">{followedReferences.join("; ")}</div>
+        ? followedReferences.map(ref => <div key={ref} className="followedReference">{ref}</div> )
         : ""
 
     return <div className="references">{followedReferencesDiv}<div className="allReferences" >{props.references}</div></div>

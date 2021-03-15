@@ -24,7 +24,7 @@ export function CurrentRezisContainer() {
 
   return (
     <div className="currentRezisContainer">
-      <div className="publishingDate">CURRENT REZIS</div>
+      <div className="publishingDate">LAST UPDATE</div>
         {content}
     </div>
   );

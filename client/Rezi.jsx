@@ -56,11 +56,11 @@ export function Rezi(props) {
   }
   
   return (
-    <div className={`rezi ${marked ? 'marked' : ''}`}>
+    <div className={`rezi ${marked ? 'marked' : ''} rezi-${data.rating}`}>
       {cover}
       <div className="rezibody">
         <div className="rezititle">{data.title}</div>
-        <div><span className="rezidate">{data.datestring}</span> - <span className="rezirating">{data.rating} / 10 </span>
+        <div><span className="rezidate">{data.datestring}</span> - <span className="rezirating">{data.rating}</span> / 10 
         </div>
         <div onClick={toggleShowAllReferences}>
         <ReziReferences references={references}></ReziReferences>

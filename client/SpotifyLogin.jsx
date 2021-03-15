@@ -5,15 +5,14 @@ import SpotifyWebApi from "spotify-web-api-js";
 
 export function SpotifyLogin(props) {
   const { spotifyInfo, setSpotifyInfo } = useContext(SpotifyContext);
-  const [ user, setUser ] = useState(undefined);
-  
-  console.log("Rerender SpotifyLogin")
+  const [user, setUser] = useState(undefined);
+  var content;
 
   var hash = getHashParams();
   if (!spotifyInfo.accessToken && hash.access_token) {
     window.location.hash = "";
     spotifyInfo.accessToken = hash.access_token;
-    console.log("Set access token to context")
+    console.log("Set access token to context");
     setSpotifyInfo(spotifyInfo);
   }
 
@@ -24,7 +23,8 @@ export function SpotifyLogin(props) {
 
     // const REDIRECT_URI = $location.absUrl().split('?')[0].replace("index.html", "") + "index.html"
     const REDIRECT_URI = window.location.origin + "/index.html";
-    const scopes = "streaming, user-read-email, user-read-private, user-read-playback-state, user-modify-playback-state, user-library-read, user-library-modify, user-follow-read";
+    const scopes =
+      "streaming, user-read-email, user-read-private, user-read-playback-state, user-modify-playback-state, user-library-read, user-library-modify, user-follow-read";
     const authUrl =
       "https://accounts.spotify.com/authorize" +
       `?client_id=${encodeURIComponent(CLIENT_ID)}` +
@@ -34,62 +34,59 @@ export function SpotifyLogin(props) {
     window.location.href = authUrl;
   };
 
-
   /** Recursive function because Spotify API allows only a limit of 50 */
   const loadAllFollowedArtists = (artists, after) => {
     const promise = new Promise((resolve) => {
       // Termination Condition
       if (artists != undefined && !after) {
-        resolve(artists)
+        resolve(artists);
         return;
       }
-      
+
       //First run
-      if (artists == undefined) artists = [];      
-      
+      if (artists == undefined) artists = [];
+
       //Normal run
-      console.log(`Call spotify API | limit: '${10}' | after: '${after}'`)
-      const body = after ? {limit: 10, after: after} : {limit: 10}
-      spotify.getFollowedArtists(body).then(result => {
-        const resultArtists = result.artists.items.map(item => item.name);
-        loadAllFollowedArtists([...artists, ...resultArtists], result.artists.cursors.after).then(obj => {
+      // console.log(`Call spotify API | limit: '${50}' | after: '${after}'`)
+      const body = after ? { limit: 50, after: after } : { limit: 10 };
+      spotify.getFollowedArtists(body).then((result) => {
+        const resultArtists = result.artists.items.map((item) => item.name);
+        loadAllFollowedArtists([...artists, ...resultArtists], result.artists.cursors.after).then((obj) => {
           resolve(obj);
-        })
-      })
+        });
+      });
     });
     return promise;
   };
 
   if (!spotifyInfo.accessToken) {
-    return (
+    content = (
       <div>
         <button onClick={login}>Login</button>
       </div>
     );
-  }
-
-  if (spotifyInfo.accessToken) {
+  } else {
     var spotify = new SpotifyWebApi();
     spotify.setAccessToken(spotifyInfo.accessToken);
 
     if (!user) {
-      spotify.getFollowedArtists({})
+      spotify.getFollowedArtists({});
       spotify.getMe().then((retrievedUser) => {
         setUser(retrievedUser);
       });
-      
-      loadAllFollowedArtists(undefined, undefined).then(result => {
+
+      loadAllFollowedArtists(undefined, undefined).then((result) => {
         console.log(result);
-        const newInfo = Object.assign({}, spotifyInfo)
+        const newInfo = Object.assign({}, spotifyInfo);
         newInfo.followedArtists = result;
-        setSpotifyInfo(newInfo)
-      })
+        setSpotifyInfo(newInfo);
+      });
 
-      return <div>Loading user info...</div>;
-    }
-
-    if (user) {
-      return <div>Logged In: {user.display_name}</div>;
+      content = <div>Loading user info...</div>;
+    } else {
+      console.log(user);
+      content = <div><img className="profilepic" src={user.images[0].url}></img></div>;
     }
   }
+  return <div id="spotifylogin"><img src="img/logo.png"></img>{content}</div>;
 }

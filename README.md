@@ -5,7 +5,7 @@
 - copy '.env.example' to '.env' and add spotify app credentials
 
 # Run
-- 'npm start'
+- 'npm run start'
 
 # Development
-- npm dev
+- 'npm run dev'

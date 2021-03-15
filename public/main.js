@@ -784,7 +784,7 @@ function CurrentRezisContainer() {
     className: "currentRezisContainer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "publishingDate"
-  }, "CURRENT REZIS"), content);
+  }, "LAST UPDATE"), content);
 }
 
 /***/ }),
@@ -983,7 +983,7 @@ function Rezi(props) {
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "rezi ".concat(marked ? 'marked' : '')
+    className: "rezi ".concat(marked ? 'marked' : '', " rezi-").concat(data.rating)
   }, cover, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "rezibody"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -992,7 +992,7 @@ function Rezi(props) {
     className: "rezidate"
   }, data.datestring), " - ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "rezirating"
-  }, data.rating, " / 10 ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, data.rating), " / 10"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     onClick: toggleShowAllReferences
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ReziReferences__WEBPACK_IMPORTED_MODULE_1__.ReziReferences, {
     references: references
@@ -1066,9 +1066,12 @@ function ReziReferences(props) {
     if (tempFollowedReferences.length > 0) setFollowedReferences(tempFollowedReferences);
   }
 
-  var followedReferencesDiv = followedReferences.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "followedReferences"
-  }, followedReferences.join("; ")) : "";
+  var followedReferencesDiv = followedReferences.length > 0 ? followedReferences.map(function (ref) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      key: ref,
+      className: "followedReference"
+    }, ref);
+  }) : "";
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "references"
   }, followedReferencesDiv, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1152,7 +1155,7 @@ function SpotifyLogin(props) {
       user = _useState2[0],
       setUser = _useState2[1];
 
-  console.log("Rerender SpotifyLogin");
+  var content;
   var hash = (0,_AppContainer__WEBPACK_IMPORTED_MODULE_2__.getHashParams)();
 
   if (!spotifyInfo.accessToken && hash.access_token) {
@@ -1186,10 +1189,10 @@ function SpotifyLogin(props) {
 
 
       if (artists == undefined) artists = []; //Normal run
+      // console.log(`Call spotify API | limit: '${50}' | after: '${after}'`)
 
-      console.log("Call spotify API | limit: '".concat(10, "' | after: '", after, "'"));
       var body = after ? {
-        limit: 10,
+        limit: 50,
         after: after
       } : {
         limit: 10
@@ -1207,12 +1210,10 @@ function SpotifyLogin(props) {
   };
 
   if (!spotifyInfo.accessToken) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    content = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       onClick: login
     }, "Login"));
-  }
-
-  if (spotifyInfo.accessToken) {
+  } else {
     var spotify = new (spotify_web_api_js__WEBPACK_IMPORTED_MODULE_3___default())();
     spotify.setAccessToken(spotifyInfo.accessToken);
 
@@ -1227,13 +1228,21 @@ function SpotifyLogin(props) {
         newInfo.followedArtists = result;
         setSpotifyInfo(newInfo);
       });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Loading user info...");
-    }
-
-    if (user) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Logged In: ", user.display_name);
+      content = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Loading user info...");
+    } else {
+      console.log(user);
+      content = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+        className: "profilepic",
+        src: user.images[0].url
+      }));
     }
   }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    id: "spotifylogin"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    src: "img/logo.png"
+  }), content);
 }
 
 /***/ }),
