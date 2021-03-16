@@ -1210,9 +1210,10 @@ function SpotifyLogin(props) {
   };
 
   if (!spotifyInfo.accessToken) {
-    content = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    content = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      className: "loginButton",
       onClick: login
-    }, "Login"));
+    }, "Login");
   } else {
     var spotify = new (spotify_web_api_js__WEBPACK_IMPORTED_MODULE_3___default())();
     spotify.setAccessToken(spotifyInfo.accessToken);
@@ -1231,16 +1232,17 @@ function SpotifyLogin(props) {
       content = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Loading user info...");
     } else {
       console.log(user);
-      content = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+      content = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
         className: "profilepic",
         src: user.images[0].url
-      }));
+      });
     }
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     id: "spotifylogin"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    className: "logo",
     src: "img/logo.png"
   }), content);
 }

@@ -1,9 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
-
 
 body {
     font-family: 'Open Sans', sans-serif;
@@ -16,12 +11,38 @@ body {
     margin-bottom: 100px;
 }
 
+#spotifylogin {
+    display:grid;
+    grid-template-columns: 3fr 1fr;
+    width: 100%;
+    max-width: 1200px;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#spotifylogin .logo {
+    max-width: 60vw;
+    width:auto;
+    height:auto;
+}
+
+#spotifylogin .profilepic {
+    height: 60px;
+    border-radius: 50px;
+    justify-self: end;
+}
+
+#spotifylogin .loginButton {
+    justify-self: end;
+}
+
+
 .rezicontainer {
     min-height:1000px;
 }
 
 .publishingDateContainer, .currentRezisContainer {
-    width: 80vw;
+    width: 100vw;
     max-width: 1200px;
     min-height: 1000px;
     margin-top: 20px;
@@ -37,9 +58,21 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+
 @media only screen and (min-width: 1100px) {
     .reziGrid {
         grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .publishingDateContainer, .currentRezisContainer {
+        width: 80vw;
+        max-width: 1200px;
+    }
+
+    #spotifylogin {
+        width: 80vw;
+        max-width: 1200px;
+        
     }
 }
 
@@ -153,19 +186,5 @@ button:hover {
     color: #dc3545;
 }
 
-#spotifylogin {
-    display:flex;
-    width: 80vw;
-    max-width: 1200px;
-    flex-direction: row;
-    justify-content: space-between;;
-}
 
-#spotifylogin img {
-    max-width: 50vw;
-}
 
-.profilepic {
-    height: 60px;
-    border-radius: 50px;
-}

@@ -61,9 +61,7 @@ export function SpotifyLogin(props) {
 
   if (!spotifyInfo.accessToken) {
     content = (
-      <div>
-        <button onClick={login}>Login</button>
-      </div>
+        <button className="loginButton" onClick={login}>Login</button>
     );
   } else {
     var spotify = new SpotifyWebApi();
@@ -85,8 +83,8 @@ export function SpotifyLogin(props) {
       content = <div>Loading user info...</div>;
     } else {
       console.log(user);
-      content = <div><img className="profilepic" src={user.images[0].url}></img></div>;
+      content = <img className="profilepic" src={user.images[0].url}></img>;
     }
   }
-  return <div id="spotifylogin"><img src="img/logo.png"></img>{content}</div>;
+  return <div id="spotifylogin"><img className="logo" src="img/logo.png"></img>{content}</div>;
 }
