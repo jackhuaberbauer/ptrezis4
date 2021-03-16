@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
 
+html {
+    font-size: 100%;
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
 }
@@ -13,29 +17,27 @@ body {
 
 #spotifylogin {
     display:grid;
-    grid-template-columns: 3fr 1fr;
+    row-gap: 10px;
+    grid-template-rows: 1fr 1fr;
+    justify-items:center;
+    align-items: stretch;
     width: 100%;
-    max-width: 1200px;
-    flex-direction: row;
-    justify-content: space-between;
+    
 }
 
 #spotifylogin .logo {
-    max-width: 60vw;
-    width:auto;
+    width: 100%;
     height:auto;
 }
 
 #spotifylogin .profilepic {
     height: 60px;
     border-radius: 50px;
-    justify-self: end;
 }
 
 #spotifylogin .loginButton {
-    justify-self: end;
+    font-size: 2rem;
 }
-
 
 .rezicontainer {
     min-height:1000px;
@@ -51,33 +53,23 @@ body {
 .publishingDate {
     text-align: center;
     font-weight: bold;
-    font-size: 2em;
+    font-size: calc(3rem);
 }
 
 .reziGrid {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    gap:5px;
+    
 }
 
-@media only screen and (min-width: 1100px) {
-    .reziGrid {
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-
-    .publishingDateContainer, .currentRezisContainer {
-        width: 80vw;
-        max-width: 1200px;
-    }
-
-    #spotifylogin {
-        width: 80vw;
-        max-width: 1200px;
-        
-    }
+.references {
+    margin-top:20px;
+    font-weight: 300;
+    font-size: 0.8rem;
 }
 
 .rezi {
-    margin: 10px;
     min-height: 100px;
     border: 1px dotted rgba(0, 0, 0, 0.125);;
     
@@ -92,7 +84,7 @@ body {
 }
 
 .rezititle {
-    font-size: 1.3em;
+    font-size: 1.3rem;
 }
 
 .rezirating {
@@ -108,7 +100,7 @@ body {
 button {
     color: #fff;
     background-color: #1db954;
-    font-size: 12px;
+    font-size: 1rem;
     line-height: 1;
     border-radius: 500px;
     padding: 11px 32px 9px;
@@ -130,10 +122,7 @@ button:hover {
     margin-top: 20px;
 }
 
-.references {
-    margin-top:20px;
-    font-weight: 300;
-}
+
 
 .followedReference {
     text-align:justify;
@@ -186,5 +175,38 @@ button:hover {
     color: #dc3545;
 }
 
+@media only screen and (min-width: 1100px) {
+    html {
+        font-size: 100%;
+    }
+    
+    .reziGrid {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap:20px;
+    }
 
+    .publishingDateContainer, .currentRezisContainer {
+        width: 80vw;
+        max-width: 1200px;
+    }
+
+    #spotifylogin {
+        display:grid;
+        justify-items: end;
+        align-items: start;
+        grid-template-rows: none;
+        grid-template-columns: 2fr 1fr;
+        width: 80vw;
+        max-width: 1200px;
+    }
+
+    .references {
+        font-size: 1rem;
+    }
+
+    #spotifylogin .loginButton {
+        font-size: 1rem;
+    }
+    
+}
 
